@@ -78,17 +78,17 @@ typedef enum parser_states
 typedef enum conversions
 {
 	CONVERSION_INITIAL,
+	CONVERSION_OCTAL_INTEGER,
 	CONVERSION_SIGNED_DECIMAL_INTEGER,
 	CONVERSION_UNSIGNED_DECIMAL_INTEGER,
-	CONVERSION_OCTAL_INTEGER,
 	CONVERSION_HEXADECIMAL_INTEGER,
+	CONVERSION_POINTER,
 	CONVERSION_NORMAL_FLOAT,
 	CONVERSION_EXPONENTIAL_FLOAT,
 	CONVERSION_CLEAN_FLOAT,
 	CONVERSION_HEXADECIMAL_FLOAT,
 	CONVERSION_CHARACTER,
 	CONVERSION_STRING,
-	CONVERSION_POINTER,
 	CONVERSION_COUNT_SO_FAR,
 	CONVERSION_ESCAPE,
 	CONVERSION_UNKNOWN
@@ -144,11 +144,6 @@ parser_states parse_format_width(
 		size_t * const pos
 );
 parser_states parse_format_precision(
-		fmt_spec * const spec,
-		char const * const text,
-		size_t * const pos
-);
-parser_states parse_format_length(
 		fmt_spec * const spec,
 		char const * const text,
 		size_t * const pos
