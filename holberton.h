@@ -49,11 +49,10 @@ typedef enum parser_states
 {
 	PARSER_FLAGS,
 	PARSER_WIDTH,
-	PARSER_DOT,
 	PARSER_PRECISION,
-	PARSER_SKIP_DIGITS,
 	PARSER_LENGTH,
-	PARSER_CONVERSION
+	PARSER_CONVERSION,
+	PARSER_DONE
 } parser_states;
 
 
@@ -78,6 +77,7 @@ typedef enum parser_states
 typedef enum conversions
 {
 	CONVERSION_INITIAL,
+	CONVERSION_BINARY_INTEGER,
 	CONVERSION_OCTAL_INTEGER,
 	CONVERSION_SIGNED_DECIMAL_INTEGER,
 	CONVERSION_UNSIGNED_DECIMAL_INTEGER,
@@ -132,7 +132,17 @@ typedef struct fmt_spec
 } fmt_spec;
 
 
+int _printf(char const * const fmt, ...);
+
+void print_plain(
+		char const * const fmt,
+		size_t * const fpos,
+		char * const buf,
+		size_t * const bpos
+);
+
 void init_spec(fmt_spec * const spec);
+
 parser_states parse_format_flags(
 		fmt_spec * const spec,
 		char const * const text,
