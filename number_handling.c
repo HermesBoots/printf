@@ -33,7 +33,7 @@ void print_data(char * const buf, size_t * const pos,
 	case CONVERSION_HEXADECIMAL_INTEGER:
 	case CONVERSION_SIGNED_DECIMAL_INTEGER:
 		uln = convert_int(buf, pos, spec, list);
-		print_int(buf, pos, uln, bases[spec->conversion])
+		print_int(buf, pos, spec, uln, bases[spec->conversion])
 	}
 }
 
@@ -91,14 +91,31 @@ unsigned long convert_int(char * const buf, size_t * const pos,
  * print_int - convert to base and print to buffer
  * @buf: buffer to print to
  * @pos: current position in buffer
+ * @spec: to check if flags.capitals is true
  * @val: value to convert and print
  * @radix: base to convert to
  *
  * Return: void
  */
 void print_int(char * const buf, size_t * const pos,
-	       unsigned long val, int bases)
+	       fmt_spec const * const spec, unsigned long val, int base)
 {
-/* put modified conversion here and add print to buffer */
-/* pass in struct to check capitals - lower and upper convert field */
+	int caps = spec->flags.capitals;
+	const char digitsUp[16] = "0123456789ABCDEF";
+	const char digitsLow[16] = "0123456789abcdef";
+	int index = 0, length = 0;
+	int convNum[64];
+
+	do {
+		convNum[index] = val % base;
+	        index++;
+		convNum /= base;
+	} while (num);
+	count = index;
+	if (caps)
+		for(index--; index >= 0; index--)
+			buf[(*pos)++] = convNum[index];
+	else
+		for(index--; index >= 0; index--)
+			buf[(*pos)++] = convNum[index];
 }
