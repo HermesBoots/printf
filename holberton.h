@@ -2,7 +2,9 @@
 #define _FORMATTER_H_
 
 #include <stdlib.h>
-
+#include <stdarg.h>
+#include <stdbool.h>
+#include <limits.h>
 
 #define FORMAT_UNSPECIFIED (-1)
 #define FORMAT_NEGATIVE (-2)
@@ -168,6 +170,27 @@ parser_states parse_format_conversion(
 		char const * const text,
 		size_t * const pos
 );
+
+/* Function Prototypes */
+/* number_handling.c */
+void print_data(char * const buf,
+		size_t * const pos,
+		fmt_spec const * const spec,
+		va_list *list);
+unsigned long convert_int(char * const buf,
+			  size_t * const pos,
+			  fmt_spec const * const spec,
+			  va_list *list);
+void print_int(char * const buf,
+	       size_t * const pos,
+	       fmt_spec const * const spec,
+	       unsigned long val,
+	       int radix);
+/* printf.c */
+void print_plain(char const * const fmt,
+		 size_t * const fpos,
+		 char * const buf,
+		 size_t * const bpos);
 
 
 #endif /* _FORMATTER_H_ */
