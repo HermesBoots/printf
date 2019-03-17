@@ -94,7 +94,7 @@ unsigned long convert_int(char * const buf, size_t * const pos,
 			  va_list *list, int *prefix)
 {
 	unsigned long int uli;
-	int negative = false, prefix = 0;
+	int negative = false;
 
 	switch (spec->conversion)
 	{
