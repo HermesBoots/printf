@@ -267,6 +267,15 @@ parser_states parse_format_conversion(
 	case '%':
 		spec->conversion = CONVERSION_ESCAPE;
 		break;
+	case 'S':
+		spec->conversion = CONVERSION_STRING_ESCAPED;
+		break;
+	case 'r':
+		spec->conversion = CONVERSION_STRING_REVERSE;
+		break;
+	case 'R':
+		spec->conversion = CONVERSION_STRING_ROT13;
+		break;
 	default:
 		spec->conversion = CONVERSION_UNKNOWN;
 	}
