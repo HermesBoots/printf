@@ -1,5 +1,33 @@
+#include <stdarg.h>
 #include <unistd.h>
 #include "holberton.h"
+
+
+/**
+ * _printf - print formatted output
+ * @fmt: format string indicating how to format other arguments
+ *
+ * Return: number of characters printed
+ */
+int _printf(char const * fmt, ...)
+{
+	char buffer[1024];
+	size_t fpos, backup, bpos;
+	fmt_spec spec;
+	va_list list;
+
+	va_start(list, fmt);
+	while (fmt[fpos] != '\0')
+	{
+		print_plain(fmt, &fpos, buf, &bpos);
+		init_spec(&spec);
+		parse_format_spec(&spec, fmt, &fpos);
+		if (spec->conversion != CONVERSION_UNKNOWN)
+			print_data(buf, &bpos, &spec, &list);
+	}
+	write(1, buf, bpos);
+	return (bpos);
+}
 
 
 /**
