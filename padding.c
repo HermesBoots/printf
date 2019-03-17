@@ -1,14 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "holberton.h"
 
 
-void pad_precision(
-		char * const buf __attribute__((unused)),
-		size_t * const start,
-		size_t * const end,
-		int prefix,
-		fmt_spec const * const spec
-);
-void movebuf(char * const buf, size_t from, size_t to, size_t count);
 /**
  * pad_field - pad a newly-printed field to given specification
  * @buf: buffer containing field
@@ -48,11 +42,12 @@ void pad_precision(
 {
 	size_t diff, temp;
 
+	printf("%lu %lu %d\n", *start, *end, prefix);
 	diff = *end - *start;
 	switch (spec->conversion)
 	{
 	case CONVERSION_STRING:
-		if (spec->precision >= 0 && (unsigned)spec->precision < diff)
+		if (spec->precision >= 0 && (unsigned int)spec->precision < diff)
 			*end -= diff - spec->precision;
 		break;
 	case CONVERSION_SIGNED_DECIMAL_INTEGER:
@@ -66,12 +61,13 @@ void pad_precision(
 			if (*start + prefix + 1 == *end && buf[*end - 1] == '0')
 				*end -= diff;
 		}
-		else if (spec->precision > 0 && (unsigned)spec->precision > diff)
+		else if (spec->precision > 0 && (unsigned int)spec->precision > diff)
 		{
 			temp = spec->precision - diff;
-			movebuf(buf, *start + prefix, *start + temp + prefix, temp);
+			movebuf(buf, *start + prefix, *start + temp + prefix, diff);
 			for (temp = 0; temp < spec->precision - diff; temp++)
 				buf[*start + prefix + temp] = '0';
+			*end += temp;
 		}
 		break;
 	default:
@@ -89,8 +85,14 @@ void pad_precision(
  */
 void movebuf(char * const buf, size_t from, size_t to, size_t count)
 {
+	char * copy;
 	size_t i;
 
+	copy = malloc(count);
+	if (copy == NULL)
+		exit(98);
 	for (i = 0; i < count; i++)
-		buf[to + i] = buf[from + i];
+		copy[i] = buf[from + i];
+	for (i = 0; i < count; i++)
+		buf[to + i] = copy[i];
 }

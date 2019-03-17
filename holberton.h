@@ -207,6 +207,26 @@ void print_plain(char const * const fmt,
 		 size_t * const fpos,
 		 char * const buf,
 		 size_t * const bpos);
+void pad_field(
+		char * const buf,
+		size_t * const start,
+		size_t * const end,
+		int prefix,
+		fmt_spec const * const spec
+);
+void pad_precision(
+		char * const buf,
+		size_t * const start,
+		size_t * const end,
+		int prefix,
+		fmt_spec const * const spec
+);
+void movebuf(
+		char * const buf,
+		size_t from,
+		size_t to,
+		size_t count
+);
 
 
 #endif /* _FORMATTER_H_ */
