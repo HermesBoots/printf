@@ -39,11 +39,10 @@ enum lengths
  * @PARSER_INITIAL: intitial state, sanity test to make sure a % exists
  * @PARSER_FLAGS: parse the flags '0', '-', '+', ' ', '#'
  * @PARSER_WIDTH: parse the field width, consisting of a sequence of digits
- * @PARSER_DOT: handle the optional dot that separates the width and precision
  * @PARSER_PRECISION: parse the precision, consisting of a sequence of digits
- * @PARSER_SKIP_DIGITS: ignore digits when precision is negative
  * @PARSER_LENGTH: parse the data lengths
  * @PARSER_CONVERSION: parse the conversion format
+ * @PARSER_DONE: done parsing
  */
 typedef enum parser_states
 {
@@ -59,6 +58,7 @@ typedef enum parser_states
 /**
  * enum conversions - conversion types supported by custom printf
  * @CONVERSION_INITIAL: initial value, indicates uninitialized specifier struct
+ * @CONVERSION_BINARY_INTEGER: 'b'
  * @CONVERSION_SIGNED_DECIMAL_INTEGER: 'd', 'i'
  * @CONVERSION_UNSIGNED_DECIMAL_INTEGER: 'u'
  * @CONVERSION_OCTAL_INTEGER: 'o'
