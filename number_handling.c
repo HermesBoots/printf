@@ -17,11 +17,12 @@
  *
  * Return: VOID
  */
-void print_data(char * const buf, size_t * const pos,
+int print_data(char * const buf, size_t * const pos,
 		fmt_spec const * const spec, va_list *list)
 {
 	int const bases[] = {0, 2, 8, 10, 10, 16, 16};
 	unsigned long uln = 0;
+	int prefix = 0;
 
 	switch (spec->conversion)
 	{
@@ -30,7 +31,7 @@ void print_data(char * const buf, size_t * const pos,
 	case CONVERSION_HEXADECIMAL_INTEGER:
 	case CONVERSION_SIGNED_DECIMAL_INTEGER:
 	case CONVERSION_BINARY_INTEGER:
-		uln = convert_int(buf, pos, spec, list);
+		uln = convert_int(buf, pos, spec, list, *prefix);
 		print_int(buf, pos, spec, uln, bases[spec->conversion]);
 		break;
 	case CONVERSION_STRING:
@@ -46,6 +47,7 @@ void print_data(char * const buf, size_t * const pos,
 	default:
 		break;
 	}
+	return (prefix);
 }
 
 /**
@@ -88,10 +90,11 @@ void print_str(char * const buf, size_t * const pos,
  * Return: unsigned long int
  */
 unsigned long convert_int(char * const buf, size_t * const pos,
-			  fmt_spec const * const spec, va_list *list)
+			  fmt_spec const * const spec,
+			  va_list *list, int *prefix)
 {
 	unsigned long int uli;
-	int negative = false;
+	int negative = false, prefix_count = 0;
 
 	switch (spec->conversion)
 	{
@@ -101,10 +104,8 @@ unsigned long convert_int(char * const buf, size_t * const pos,
 	case CONVERSION_BINARY_INTEGER:
 		if (spec->length == LENGTH_LONG)
 			uli = va_arg(*list, unsigned long);
-		/* will be positive */
 		else
 			uli = va_arg(*list, unsigned int);
-		/* will be positive */
 		break;
 	case CONVERSION_SIGNED_DECIMAL_INTEGER:
 		if (spec->length == LENGTH_LONG)
@@ -115,7 +116,7 @@ unsigned long convert_int(char * const buf, size_t * const pos,
 		{
 			uli = (ULONG_MAX - uli + 1);
 			negative = true;
-			print_prefix(buf, pos, spec, negative);
+			*prefix = print_prefix(buf, pos, spec, negative);
 		}
 		break;
 	default:

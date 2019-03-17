@@ -174,7 +174,7 @@ parser_states parse_format_conversion(
 
 /* Function Prototypes */
 /* number_handling.c */
-void print_data(char * const buf,
+int print_data(char * const buf,
 		size_t * const pos,
 		fmt_spec const * const spec,
 		va_list *list);
@@ -185,7 +185,8 @@ void print_str(char * const buf,
 unsigned long convert_int(char * const buf,
 			  size_t * const pos,
 			  fmt_spec const * const spec,
-			  va_list *list);
+			  va_list *list,
+			  int *prefix);
 void print_int(char * const buf,
 	       size_t * const pos,
 	       fmt_spec const * const spec,
