@@ -193,11 +193,9 @@ int print_prefix(char * const buf, size_t * const pos,
 	}
 	if (alt)
 	{
+		prefix_count++;
 		if (spec->conversion == CONVERSION_OCTAL_INTEGER)
-		{
 			buf[(*pos)++] = '0';
-			prefix_count++;
-		}
 		else if (spec->conversion == CONVERSION_HEXADECIMAL_INTEGER)
 		{
 			buf[(*pos)++] = '0';
