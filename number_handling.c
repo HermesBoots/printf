@@ -15,7 +15,7 @@
  * @spec: how to format
  * @list: va_list
  *
- * Return: VOID
+ * Return: int (prefix)
  */
 int print_data(char * const buf, size_t * const pos,
 		fmt_spec const * const spec, va_list *list)
@@ -86,6 +86,7 @@ void print_str(char * const buf, size_t * const pos,
  * @pos: current position in buffer
  * @spec: lots of stuff
  * @list: va_list
+ * @prefix: count of letters added for prefix
  *
  * Return: unsigned long int
  */
@@ -116,12 +117,12 @@ unsigned long convert_int(char * const buf, size_t * const pos,
 		{
 			uli = (ULONG_MAX - uli + 1);
 			negative = true;
-			*prefix = print_prefix(buf, pos, spec, negative);
 		}
 		break;
 	default:
 		break;
 	}
+	*prefix = print_prefix(buf, pos, spec, negative);
 	return (uli);
 }
 
@@ -162,7 +163,15 @@ void print_int(char * const buf, size_t * const pos,
 			buf[(*pos)++] = digitsLow[temp];
 		}
 }
-
+/**
+ * print_prefix - print any prefix and return num of chars printed
+ * @buf: buffer
+ * @pos: current position in buffer
+ * @spec: things to check
+ * @negative: negative flag (binary)
+ *
+ * Return: number of prefix chars added to buffer
+ */
 int print_prefix(char * const buf, size_t * const pos,
 		 fmt_spec const * const spec, int negative)
 {
@@ -174,15 +183,13 @@ int print_prefix(char * const buf, size_t * const pos,
 		buf[(*pos)++] = '-';
 		prefix_count++;
 	}
-	else if (spec->flags.show_positive_sign)
+	else if (spec->flags.show_positive_sign || spec->flags.pad_positives)
 	{
-		buf[(*pos)++] = '+';
 		prefix_count++;
-	}
-	else if (spec->flags.pad_positives)
-	{
-		buf[(*pos)++] = ' ';
-		prefix_count++;
+		if (spec->flags.show_positive_sign)
+			buf[(*pos)++] = '+';
+		else if (spec->flags.pad_positives)
+			buf[(*pos)++] = ' ';
 	}
 	if (alt)
 	{
