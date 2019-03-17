@@ -193,7 +193,8 @@ void print_int(char * const buf,
 	       int radix);
 int print_prefix(char * const buf,
 		 size_t * const pos,
-		 fmt_spec const * const spec);
+		 fmt_spec const * const spec,
+		 int negative);
 /* printf.c */
 int _printf(char const *fmt, ...);
 void init_spec(fmt_spec * const spec);

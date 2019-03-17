@@ -115,17 +115,12 @@ unsigned long convert_int(char * const buf, size_t * const pos,
 		{
 			uli = (ULONG_MAX - uli + 1);
 			negative = true;
+			print_prefix(buf, pos, spec, negative);
 		}
 		break;
 	default:
 		break;
 	}
-	if (negative == true)
-		buf[(*pos)++] = '-';
-	else if (spec->flags.show_positive_sign)
-		buf[(*pos)++] = '+';
-	else if (spec->flags.pad_positives)
-		buf[(*pos)++] = ' ';
 	return (uli);
 }
 
@@ -153,19 +148,6 @@ void print_int(char * const buf, size_t * const pos,
 		index++;
 		val /= radix;
 	} while (val);
-	if (alt)
-	{
-		if (spec->conversion == CONVERSION_OCTAL_INTEGER)
-			buf[(*pos)++] = '0';
-		else if (spec->conversion == CONVERSION_HEXADECIMAL_INTEGER)
-		{
-			buf[(*pos)++] = '0';
-			if (caps)
-				buf[(*pos)++] = 'X';
-			else
-				buf[(*pos)++] = 'x';
-		}
-	}
 	if (caps)
 		for (index--; index >= 0; index--)
 		{
@@ -178,4 +160,48 @@ void print_int(char * const buf, size_t * const pos,
 			temp = convNum[index];
 			buf[(*pos)++] = digitsLow[temp];
 		}
+}
+
+int print_prefix(char * const buf, size_t * const pos,
+		 fmt_spec const * const spec, int negative)
+{
+	int caps = spec->flag.capitals, alt = spec->flag.alternate_form;
+
+	if (negative == true)
+	{
+		buf[(*pos)++] = '-';
+		return (1);
+	}
+	else if (spec->flags.show_positive_sign)
+	{
+		buf[(*pos)++] = '+';
+		return (1);
+	}
+	else if (spec->flags.pad_positives)
+	{
+		buf[(*pos)++] = ' ';
+		return (1);
+	}
+	if (alt)
+	{
+		if (spec->conversion == CONVERSION_OCTAL_INTEGER)
+		{
+			buf[(*pos)++] = '0';
+			return (1);
+		}
+		else if (spec->conversion == CONVERSION_HEXADECIMAL_INTEGER)
+		{
+			buf[(*pos)++] = '0';
+			if (caps)
+			{
+				buf[(*pos)++] = 'X';
+				return (2);
+			}
+			else
+			{
+				buf[(*pos)++] = 'x';
+				return (2);
+			}
+		}
+	}
 }
