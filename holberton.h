@@ -199,6 +199,7 @@ void print_int(char * const buf,
 	       int radix);
 void print_str(char * const buf,
 		size_t * const pos,
+	       fmt_spec const * const spec,
 		char const *str);
 /* printf.c */
 void print_plain(char const * const fmt,

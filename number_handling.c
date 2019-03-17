@@ -54,15 +54,27 @@ void print_data(char * const buf, size_t * const pos,
  * @pos: position in buffer to write to
  * @str: pointer to string
  */
-void print_str(char * const buf, size_t * const pos, char const *str)
+void print_str(char * const buf, size_t * const pos,
+	       fmt_spec const * const spec, char const *str)
 {
-	if (str == NULL)
-		str = "(nil)";
-	while (*str != '\0')
+	char *s = str;
+	int count = 0;
+
+	if (spec->conversions == CONVERSION_STRING_REVERSE)
 	{
-		buf[*pos] = *str;
-		++*pos;
-		++str;
+		while (*s++)
+			count++;
+		for (s--; s != str;(*pos)++, s--)
+			buf[*pos] = *s;
+	}
+	else
+	{
+		while (*str != '\0')
+		{
+			buf[*pos] = *str;
+			++*pos;
+			++str;
+		}
 	}
 }
 
@@ -145,7 +157,7 @@ void print_int(char * const buf, size_t * const pos,
 	{
 		if (spec->conversion == CONVERSION_OCTAL_INTEGER)
 			buf[(*pos)++] = '0';
-		else if (spec->conversion == CONVERSION_HEXADECCIMAL_INTEGER)
+		else if (spec->conversion == CONVERSION_HEXADECIMAL_INTEGER)
 		{
 			buf[(*pos)++] = '0';
 			if (caps)

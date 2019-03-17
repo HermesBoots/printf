@@ -17,12 +17,12 @@ A project to recreated the C standard `printf` function with some extra extensio
 - [ ] S - print a string, but non-printable chars are upper hex, 2 chars (\xNN)(custom)
 - [ ] p - print address
 - [x] + - A  sign  (+ or -) should always be placed before a number produced by a signed conversion.
-- [ ]  - (a space) A blank should be left before a positive number (or empty string) produced by a signed conversion.
+- [x]  - (a space) A blank should be left before a positive number (or empty string) produced by a signed conversion.
 - [x] # - "alternate form" -- o: preceeded by a 0, x/X: preceeded by 0x, floats: all numbers will have decimal point
 - [ ] l - length modifier for d, i, o, u, x, X
 - [ ] h - s/a
 - [ ] 0 - padded with 0
-- [ ] r - prints the reversed string (custom)
+- [x] r - prints the reversed string (custom)
 - [ ] R - print ROT13'd string (custom)
 - [ ] - - left justify
 - [x] % - will print a '%' (use: %%)
