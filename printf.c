@@ -41,7 +41,7 @@ void init_spec(fmt_spec * const spec)
 {
 	*(unsigned int *)&spec->flags = 0;
 	spec->width = FORMAT_UNSPECIFIED;
-	spec->precision = FORMAT_UNSPECIFIED = 0;
+	spec->precision = FORMAT_UNSPECIFIED;
 	spec->length = LENGTH_DEFAULT;
 	spec->conversion = CONVERSION_INITIAL;
 }
