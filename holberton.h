@@ -178,6 +178,10 @@ void print_data(char * const buf,
 		size_t * const pos,
 		fmt_spec const * const spec,
 		va_list *list);
+void print_str(char * const buf,
+		size_t * const pos,
+	       fmt_spec const * const spec,
+		char const *str);
 unsigned long convert_int(char * const buf,
 			  size_t * const pos,
 			  fmt_spec const * const spec,
@@ -187,10 +191,9 @@ void print_int(char * const buf,
 	       fmt_spec const * const spec,
 	       unsigned long val,
 	       int radix);
-void print_str(char * const buf,
-		size_t * const pos,
-	       fmt_spec const * const spec,
-		char const *str);
+int print_prefix(char * const buf,
+		 size_t * const pos,
+		 fmt_spec const * const spec);
 /* printf.c */
 int _printf(char const *fmt, ...);
 void init_spec(fmt_spec * const spec);
