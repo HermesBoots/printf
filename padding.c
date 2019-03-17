@@ -95,4 +95,5 @@ void movebuf(char * const buf, size_t from, size_t to, size_t count)
 		copy[i] = buf[from + i];
 	for (i = 0; i < count; i++)
 		buf[to + i] = copy[i];
+	free(copy);
 }
