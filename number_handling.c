@@ -37,8 +37,12 @@ void print_data(char * const buf, size_t * const pos,
 		print_str(buf, pos, va_arg(*list, char *));
 		break;
 	case CONVERSION_CHARACTER:
-		print_char(buf, pos, va_arg(*list, int));
+		buf[*pos] = va_arg(*list, int) & 0xFF;
+		++*pos;
 		break;
+	case CONVERSION_ESCAPE:
+		buf[*pos] = '%';
+		++*pos;
 	default:
 		break;
 	}
@@ -60,18 +64,6 @@ void print_str(char * const buf, size_t * const pos, char const *str)
 		++*pos;
 		++str;
 	}
-}
-
-/**
- * print_char - print a character to the buffer
- * @buf: buffer
- * @pos: position in buffer to write to
- * @c: value of character
- */
-void print_char(char * const buf, size_t * const pos, int const c)
-{
-	buf[*pos] = c & 0xFF;
-	++*pos;
 }
 
 /**
