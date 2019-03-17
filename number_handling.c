@@ -20,16 +20,16 @@
 void print_data(char * const buf, size_t * const pos,
 		fmt_spec const * const spec, va_list *list)
 {
-	int const bases[] = {0, 8, 10, 10, 16, 16};
+	int const bases[] = {0, 2, 8, 10, 10, 16, 16};
 	unsigned long uln = 0;
 
-	va_arg(*list, int);
 	switch (spec->conversion)
 	{
 	case CONVERSION_OCTAL_INTEGER:
 	case CONVERSION_UNSIGNED_DECIMAL_INTEGER:
 	case CONVERSION_HEXADECIMAL_INTEGER:
 	case CONVERSION_SIGNED_DECIMAL_INTEGER:
+	case CONVERSION_BINARY_INTEGER:
 		uln = convert_int(buf, pos, spec, list);
 		print_int(buf, pos, spec, uln, bases[spec->conversion]);
 		break;
@@ -86,6 +86,7 @@ unsigned long convert_int(char * const buf, size_t * const pos,
 	case CONVERSION_OCTAL_INTEGER:
 	case CONVERSION_HEXADECIMAL_INTEGER:
 	case CONVERSION_UNSIGNED_DECIMAL_INTEGER:
+	case CONVERSION_BINARY_INTEGER:
 		if (spec->length == LENGTH_LONG)
 			uli = va_arg(*list, unsigned long);
 		/* will be positive */
@@ -129,7 +130,7 @@ unsigned long convert_int(char * const buf, size_t * const pos,
 void print_int(char * const buf, size_t * const pos,
 	       fmt_spec const * const spec, unsigned long val, int radix)
 {
-	int caps = spec->flags.capitals;
+	int caps = spec->flags.capitals, alt = spec->flags.alternate_form;
 	const char digitsUp[16] = "0123456789ABCDEF";
 	const char digitsLow[16] = "0123456789abcdef";
 	int index = 0, temp = 0;
@@ -140,6 +141,19 @@ void print_int(char * const buf, size_t * const pos,
 		index++;
 		val /= radix;
 	} while (val);
+	if (alt)
+	{
+		if (spec->conversion == CONVERSION_OCTAL_INTEGER)
+			buf[(*pos)++] = '0';
+		else if (spec->conversion == CONVERSION_HEXADECCIMAL_INTEGER)
+		{
+			buf[(*pos)++] = '0';
+			if (caps)
+				buf[(*pos)++] = 'X';
+			else
+				buf[(*pos)++] = 'x';
+		}
+	}
 	if (caps)
 		for (index--; index >= 0; index--)
 		{
