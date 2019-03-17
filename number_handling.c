@@ -103,19 +103,26 @@ void print_int(char * const buf, size_t * const pos,
 	int caps = spec->flags.capitals;
 	const char digitsUp[16] = "0123456789ABCDEF";
 	const char digitsLow[16] = "0123456789abcdef";
-	int index = 0, length = 0;
+	int index = 0, length = 0, temp = 0;
 	int convNum[64];
+	char digit;
 
 	do {
 		convNum[index] = val % base;
 	        index++;
 		convNum /= base;
 	} while (num);
-	count = index;
+	length = index;
 	if (caps)
 		for(index--; index >= 0; index--)
-			buf[(*pos)++] = convNum[index];
+		{
+			temp = convNum[index];
+			buf[(*pos)++] = digitsUp[temp];
+		}
 	else
 		for(index--; index >= 0; index--)
-			buf[(*pos)++] = convNum[index];
+		{
+			temp = convNum[index];
+			buf[(*pos)++] = digitsLow[temp];
+		}
 }
