@@ -15,7 +15,7 @@
  * @LENGTH_DEFAULT: used when length isn't specified
  * @LENGTH_SHORTER: "hh"
  * @LENGTH_SHORT: "h"
- * @LENGTH_LONG: "l"
+n * @LENGTH_LONG: "l"
  * @LENGTH_LONGER: "ll"
  * @LENGTH_MAXIMUM: "j"
  * @LENGTH_SIZE: "z"
