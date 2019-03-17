@@ -16,7 +16,7 @@
  * @spec: how to format
  * @list: va_list
  *
- * Return: void
+ * Return: VOID
  */
 void print_data(char * const buf, size_t * const pos,
 		fmt_spec const * const spec, va_list *list)
@@ -95,10 +95,10 @@ unsigned long convert_int(char * const buf, size_t * const pos,
  * @val: value to convert and print
  * @radix: base to convert to
  *
- * Return: void
+ * Return: VOID
  */
 void print_int(char * const buf, size_t * const pos,
-	       fmt_spec const * const spec, unsigned long val, int base)
+	       fmt_spec const * const spec, unsigned long val, int radix)
 {
 	int caps = spec->flags.capitals;
 	const char digitsUp[16] = "0123456789ABCDEF";
@@ -108,19 +108,19 @@ void print_int(char * const buf, size_t * const pos,
 	char digit;
 
 	do {
-		convNum[index] = val % base;
+		convNum[index] = val % radix;
 	        index++;
-		convNum /= base;
+		convNum /= radix;
 	} while (num);
 	length = index;
 	if (caps)
-		for(index--; index >= 0; index--)
+		for (index--; index >= 0; index--)
 		{
 			temp = convNum[index];
 			buf[(*pos)++] = digitsUp[temp];
 		}
 	else
-		for(index--; index >= 0; index--)
+		for (index--; index >= 0; index--)
 		{
 			temp = convNum[index];
 			buf[(*pos)++] = digitsLow[temp];
