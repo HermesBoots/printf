@@ -151,6 +151,11 @@ void print_plain(
 
 void init_spec(fmt_spec * const spec);
 
+conversions parse_format_spec(
+		fmt_spec * const spec,
+		char const * const text,
+		size_t * const pos
+);
 parser_states parse_format_flags(
 		fmt_spec * const spec,
 		char const * const text,
@@ -192,6 +197,9 @@ void print_int(char * const buf,
 	       fmt_spec const * const spec,
 	       unsigned long val,
 	       int radix);
+void print_str(char * const buf,
+		size_t * const pos,
+		char const *str);
 /* printf.c */
 void print_plain(char const * const fmt,
 		 size_t * const fpos,

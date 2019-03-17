@@ -9,10 +9,10 @@
  *
  * Return: number of characters printed
  */
-int _printf(char const * fmt, ...)
+int _printf(char const *fmt, ...)
 {
-	char buffer[1024];
-	size_t fpos, backup, bpos;
+	char buf[1024];
+	size_t fpos, backup __attribute__((unused)), bpos;
 	fmt_spec spec;
 	va_list list;
 
@@ -22,8 +22,11 @@ int _printf(char const * fmt, ...)
 		print_plain(fmt, &fpos, buf, &bpos);
 		init_spec(&spec);
 		parse_format_spec(&spec, fmt, &fpos);
-		if (spec->conversion != CONVERSION_UNKNOWN)
+		if (spec.conversion != CONVERSION_UNKNOWN)
+		{
+			backup = bpos;
 			print_data(buf, &bpos, &spec, &list);
+		}
 	}
 	write(1, buf, bpos);
 	return (bpos);
@@ -31,7 +34,22 @@ int _printf(char const * fmt, ...)
 
 
 /**
- * parse_format_specifier - parse the current format specifier in the format
+ * init_spec - intitialize a format specifier structure
+ * @spec: pointer to structure
+ */
+void init_spec(fmt_spec * const spec)
+{
+	*(unsigned int *)&spec->flags = 0;
+	spec->width = FORMAT_UNSPECIFIED;
+	spec->precision = FORMAT_UNSPECIFIED = 0;
+	spec->length = LENGTH_DEFAULT;
+	spec->conversion = CONVERSION_INITIAL;
+}
+
+
+
+/**
+ * parse_format_spec - parse the current format specifier in the format
  * @spec: pointer to format specifier
  * @text: pointer to format string
  * @pos: position in the format string
