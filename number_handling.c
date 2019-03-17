@@ -34,7 +34,7 @@ void print_data(char * const buf, size_t * const pos,
 		print_int(buf, pos, spec, uln, bases[spec->conversion]);
 		break;
 	case CONVERSION_STRING:
-		print_str(buf, pos, va_arg(*list, char *));
+		print_str(buf, pos, spec, va_arg(*list, char *));
 		break;
 	case CONVERSION_CHARACTER:
 		buf[*pos] = va_arg(*list, int) & 0xFF;
@@ -52,19 +52,19 @@ void print_data(char * const buf, size_t * const pos,
  * print_str - print a string to the buffer
  * @buf: buffer
  * @pos: position in buffer to write to
+ * @spec: to check if reverse
  * @str: pointer to string
  */
 void print_str(char * const buf, size_t * const pos,
 	       fmt_spec const * const spec, char const *str)
 {
 	char *s = str;
-	int count = 0;
 
 	if (spec->conversions == CONVERSION_STRING_REVERSE)
 	{
 		while (*s++)
-			count++;
-		for (s--; s != str;(*pos)++, s--)
+			;
+		for (s--; s != str; (*pos)++, s--)
 			buf[*pos] = *s;
 	}
 	else

@@ -140,16 +140,6 @@ typedef struct fmt_spec
 } fmt_spec;
 
 
-int _printf(char const * const fmt, ...);
-
-void print_plain(
-		char const * const fmt,
-		size_t * const fpos,
-		char * const buf,
-		size_t * const bpos
-);
-
-void init_spec(fmt_spec * const spec);
 
 conversions parse_format_spec(
 		fmt_spec * const spec,
@@ -202,6 +192,12 @@ void print_str(char * const buf,
 	       fmt_spec const * const spec,
 		char const *str);
 /* printf.c */
+int _printf(char const *fmt, ...);
+void init_spec(fmt_spec * const spec);
+conversions parse_format_spec(
+	fmt_spec * const spec,
+	char const * const text,
+	size_t * const pos);
 void print_plain(char const * const fmt,
 		 size_t * const fpos,
 		 char * const buf,
