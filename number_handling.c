@@ -31,7 +31,7 @@ int print_data(char * const buf, size_t * const pos,
 	case CONVERSION_HEXADECIMAL_INTEGER:
 	case CONVERSION_SIGNED_DECIMAL_INTEGER:
 	case CONVERSION_BINARY_INTEGER:
-		uln = convert_int(buf, pos, spec, list, *prefix);
+		uln = convert_int(buf, pos, spec, list, &prefix);
 		print_int(buf, pos, spec, uln, bases[spec->conversion]);
 		break;
 	case CONVERSION_STRING:
@@ -94,7 +94,7 @@ unsigned long convert_int(char * const buf, size_t * const pos,
 			  va_list *list, int *prefix)
 {
 	unsigned long int uli;
-	int negative = false, prefix_count = 0;
+	int negative = false, prefix = 0;
 
 	switch (spec->conversion)
 	{
