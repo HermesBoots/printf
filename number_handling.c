@@ -32,9 +32,46 @@ void print_data(char * const buf, size_t * const pos,
 	case CONVERSION_SIGNED_DECIMAL_INTEGER:
 		uln = convert_int(buf, pos, spec, list);
 		print_int(buf, pos, spec, uln, bases[spec->conversion]);
+		break;
+	case CONVERSION_STRING:
+		print_str(buf, pos, va_arg(*list, char *));
+		break;
+	case CONVERSION_CHARACTER:
+		print_char(buf, pos, va_arg(*list, int));
+		break;
 	default:
 		break;
 	}
+}
+
+/**
+ * print_str - print a string to the buffer
+ * @buf: buffer
+ * @pos: position in buffer to write to
+ * @str: pointer to string
+ */
+void print_str(char * const buf, size_t * const pos, char const *str)
+{
+	if (str == NULL)
+		str = "(nil)";
+	while (*str != '\0')
+	{
+		buf[*pos] = *str;
+		++*pos;
+		++str;
+	}
+}
+
+/**
+ * print_char - print a character to the buffer
+ * @buf: buffer
+ * @pos: position in buffer to write to
+ * @c: value of character
+ */
+void print_char(char * const buf, size_t * const pos, int const c)
+{
+	buf[*pos] = c & 0xFF;
+	++*pos;
 }
 
 /**
