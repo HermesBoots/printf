@@ -9,9 +9,9 @@
  * @str: pointer to string
  */
 void print_str(char * const buf, size_t * const pos,
-	       fmt_spec const * const spec, char *str)
+	       fmt_spec const * const spec, const char *str)
 {
-	char *s = str, *null = "(null)";
+	const char *s = str, *null = "(null)";
 	int i;
 
 	if (str == NULL)
@@ -21,7 +21,10 @@ void print_str(char * const buf, size_t * const pos,
 			return;
 		}
 	if (spec->conversion == CONVERSION_STRING_ROT13)
-		rot_13(s);
+	{
+		rot_13(buf, pos, s);
+		return;
+	}
 	if (spec->conversion == CONVERSION_STRING_REVERSE)
 	{
 		while (*s++)
@@ -42,19 +45,23 @@ void print_str(char * const buf, size_t * const pos,
 
 /**
  * rot_13 - convert string to rot13
+ * @buf: buffer to print to
+ * @pos: current position in buffer
  * @str: string to modify
  *
  * Return: VOID
  */
-void rot_13(char *str)
+void rot_13(char * const buf, size_t * const pos, char const *str)
 {
-	char *s = str;
+	const char *s = str;
 	char const *rot =
 		"NOPQRSTUVWXYZABCDEFGHIJKLM123456nopqrstuvwxyzabcdefghijklm";
 
 	for (; *s; s++)
 	{
 		if ((*s >= 'A' || *s <= 'Z') && (*s >= 'a' || *s <= 'z'))
-			*s = rot[*s - 'A'];
+			buf[(*pos)++] = rot[*s - 'A'];
+		else
+			buf[(*pos)++] = *s;
 	}
 }
