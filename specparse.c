@@ -192,7 +192,8 @@ parser_states parse_format_conversion(
 		size_t * const pos
 )
 {
-	switch (text[*pos])
+	spec->conversion = CONVERSION_UNKNOWN;
+	switch (text[(*pos)++])
 	{
 	case 'd': case 'i':
 		spec->conversion = CONVERSION_SIGNED_DECIMAL_INTEGER;
@@ -203,10 +204,12 @@ parser_states parse_format_conversion(
 	case 'o':
 		spec->conversion = CONVERSION_OCTAL_INTEGER;
 		break;
-	case 'X':
-		spec->flags.capitals = 1;
-		/* fall through */
+	case 'p':
+		spec->flags.alternate_form = 1;
+		spec->length = LENGTH_LONG;
 	case 'x':
+		spec->flags.capitals = 0;
+	case 'X':
 		spec->conversion = CONVERSION_HEXADECIMAL_INTEGER;
 		break;
 	case 'c':
@@ -214,9 +217,6 @@ parser_states parse_format_conversion(
 		break;
 	case 's':
 		spec->conversion = CONVERSION_STRING;
-		break;
-	case 'p':
-		spec->conversion = CONVERSION_POINTER;
 		break;
 	case '%':
 		spec->conversion = CONVERSION_ESCAPE;
@@ -230,9 +230,6 @@ parser_states parse_format_conversion(
 	case 'R':
 		spec->conversion = CONVERSION_STRING_ROT13;
 		break;
-	default:
-		spec->conversion = CONVERSION_UNKNOWN;
 	}
-	++*pos;
 	return (PARSER_DONE);
 }

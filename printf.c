@@ -42,6 +42,7 @@ int _printf(char const *fmt, ...)
 void init_spec(fmt_spec * const spec)
 {
 	*(unsigned int *)&spec->flags = 0;
+	spec->flags.capitals = 1;
 	spec->width = FORMAT_UNSPECIFIED;
 	spec->precision = FORMAT_UNSPECIFIED;
 	spec->length = LENGTH_DEFAULT;
