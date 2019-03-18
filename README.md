@@ -23,15 +23,15 @@ A project to recreated the C standard `printf` function with some extra extensio
 - [ ] h - s/a
 - [ ] 0 - padded with 0
 - [x] r - prints the reversed string (custom)
-- [ ] R - print ROT13'd string (custom)
+- [x] R - print ROT13'd string (custom)
 - [ ] - - left justify
 - [x] % - will print a '%' (use: %%)
 
 ### Other:
-- [ ] man page for function [Nate - sunday night]
+- [ ] man page for function [draft complete]
 - [x] local buffer of 1024 chars
-- [ ] handle field width for non-custom conversions
-- [ ] handle precision for non-custom conversions
+- [x] handle field width for non-custom conversions
+- [x] handle precision for non-custom conversions
 - [ ] GG - will change voltage of computer and make it explode. Super exciting.
 
 ## Issues to resolve:

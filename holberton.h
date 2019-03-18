@@ -227,8 +227,10 @@ void movebuf(
 void print_str(char * const buf,
 	       size_t * const pos,
 	       fmt_spec const * const spec,
-	       char *str);
-void rot_13(char *str);
+	       const char *str);
+void rot_13(char * const buf,
+	    size_t * const pos,
+	    const char *str);
 
 
 #endif /* _FORMATTER_H_ */

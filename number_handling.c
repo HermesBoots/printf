@@ -36,6 +36,7 @@ int print_data(char * const buf, size_t * const pos,
 		break;
 	case CONVERSION_STRING:
 	case CONVERSION_STRING_REVERSE:
+	case CONVERSION_STRING_ROT13:
 		print_str(buf, pos, spec, va_arg(*list, char *));
 		break;
 	case CONVERSION_CHARACTER:
