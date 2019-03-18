@@ -228,7 +228,7 @@ parser_states parse_format_conversion(
 		break;
 	default:
 		if (spec->flags.capitals)
-			c -= 32;
+			c += 32;
 		if (c >= 'a' && c <= 'z')
 			spec->conversion = map[c - 'a'];
 	}
