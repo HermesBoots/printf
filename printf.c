@@ -12,7 +12,7 @@
 int _printf(char const *fmt, ...)
 {
 	char buf[1024];
-	size_t fpos, backup __attribute__((unused)), bpos;
+	size_t fpos = 0, backup __attribute__((unused)), bpos = 0;
 	fmt_spec spec;
 	va_list list;
 
