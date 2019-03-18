@@ -52,6 +52,6 @@ void rot_13(char const *str)
 	for (; *s; s++)
 	{
 		if ((*s >= 'A' || *s <= 'Z') && (*s >= 'a' || *s <= 'z'))
-			*s = rot[*sub - 'A'];
+			*s = rot[*s - 'A'];
 	}
 }
