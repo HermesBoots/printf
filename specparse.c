@@ -213,7 +213,6 @@ parser_states parse_format_conversion(
 	{
 	case 'p':
 		spec->flags.alternate_form = 1;
-		spec->flags.capitals = 1;
 		spec->length = LENGTH_LONG;
 		spec->conversion = CONVERSION_HEXADECIMAL_INTEGER;
 		break;
