@@ -141,47 +141,39 @@ typedef struct fmt_spec
 
 
 
+
+/* Function Prototypes */
+/* specparse.c */
 conversions parse_format_spec(
 		fmt_spec * const spec,
 		char const * const text,
-		size_t * const pos
-);
+		size_t * const pos);
 parser_states parse_format_flags(
 		fmt_spec * const spec,
 		char const * const text,
-		size_t * const pos
-);
+		size_t * const pos);
 parser_states parse_format_width(
 		fmt_spec * const spec,
 		char const * const text,
-		size_t * const pos
-);
+		size_t * const pos);
 parser_states parse_format_precision(
 		fmt_spec * const spec,
 		char const * const text,
-		size_t * const pos
-);
+		size_t * const pos);
 parser_states parse_format_length(
 		fmt_spec * const spec,
 		char const * const text,
-		size_t * const pos
-);
+		size_t * const pos);
 parser_states parse_format_conversion(
 		fmt_spec * const spec,
 		char const * const text,
-		size_t * const pos
-);
+		size_t * const pos);
 
-/* Function Prototypes */
 /* number_handling.c */
 int print_data(char * const buf,
 		size_t * const pos,
 		fmt_spec const * const spec,
 		va_list *list);
-void print_str(char * const buf,
-		size_t * const pos,
-	       fmt_spec const * const spec,
-		char const *str);
 unsigned long convert_int(char * const buf,
 			  size_t * const pos,
 			  fmt_spec const * const spec,
@@ -196,6 +188,7 @@ int print_prefix(char * const buf,
 		 size_t * const pos,
 		 fmt_spec const * const spec,
 		 int negative);
+
 /* printf.c */
 int _printf(char const *fmt, ...);
 void init_spec(fmt_spec * const spec);
@@ -212,27 +205,30 @@ void pad_field(
 		size_t * const start,
 		size_t * const end,
 		int prefix,
-		fmt_spec const * const spec
-);
+		fmt_spec const * const spec);
 void pad_precision(
 		char * const buf,
 		size_t * const start,
 		size_t * const end,
 		int prefix,
-		fmt_spec const * const spec
-);
+		fmt_spec const * const spec);
 void pad_width(
 		char * const buf,
 		size_t * const start,
 		size_t * const end,
-		fmt_spec const * const spec
-);
+		fmt_spec const * const spec);
 void movebuf(
 		char * const buf,
 		size_t from,
 		size_t to,
-		size_t count
-);
+		size_t count);
+
+/* string_handling.c */
+void print_str(char * const buf,
+	       size_t * const pos,
+	       fmt_spec const * const spec,
+	       char const *str);
+void rot_13(char const *str);
 
 
 #endif /* _FORMATTER_H_ */

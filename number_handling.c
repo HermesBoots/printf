@@ -9,7 +9,7 @@
 #include <limits.h>
 
 /**
- * print_data - take parsed formatting and send ints to be changed
+n * print_data - take parsed formatting and send ints to be changed
  * @buf: current buffer to print to
  * @pos: current position in buffer
  * @spec: how to format
@@ -35,6 +35,7 @@ int print_data(char * const buf, size_t * const pos,
 		print_int(buf, pos, spec, uln, bases[spec->conversion]);
 		break;
 	case CONVERSION_STRING:
+	case CONVERSION_STRING_REVERSE:
 		print_str(buf, pos, spec, va_arg(*list, char *));
 		break;
 	case CONVERSION_CHARACTER:
@@ -48,36 +49,6 @@ int print_data(char * const buf, size_t * const pos,
 		break;
 	}
 	return (prefix);
-}
-
-/**
- * print_str - print a string to the buffer
- * @buf: buffer
- * @pos: position in buffer to write to
- * @spec: to check if reverse
- * @str: pointer to string
- */
-void print_str(char * const buf, size_t * const pos,
-	       fmt_spec const * const spec, char const *str)
-{
-	const char *s = str;
-
-	if (spec->conversion == CONVERSION_STRING_REVERSE)
-	{
-		while (*s++)
-			;
-		for (s--; s != str; (*pos)++, s--)
-			buf[*pos] = *s;
-	}
-	else
-	{
-		while (*str != '\0')
-		{
-			buf[*pos] = *str;
-			++*pos;
-			++str;
-		}
-	}
 }
 
 /**
