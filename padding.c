@@ -12,7 +12,7 @@
  * @spec: format specifier
  */
 void pad_field(
-		char * const buf __attribute__((unused)),
+		char * const buf,
 		size_t * const start,
 		size_t * const end,
 		int prefix,
@@ -20,7 +20,48 @@ void pad_field(
 )
 {
 	pad_precision(buf, start, end, prefix, spec);
-	/*pad_width(buf, start, end, spec);*/
+	pad_width(buf, start, end, spec);
+}
+
+
+/**
+ * pad_width - handle width of fields
+ * @buf: buffer containing field
+ * @start: starting position of field
+ * @end: ending position of field
+ * @spec: format specifier
+ */
+void pad_width(
+		char * const buf,
+		size_t * const start,
+		size_t * const end,
+		fmt_spec const * const spec
+)
+{
+	char padding;
+	size_t diff, i, temp;
+
+	if (spec->width <= 0)
+		return;
+	diff = *end - *start;
+	temp = spec->width - diff;
+	if (spec->flags.left_justify)
+	{
+		for (i = 0; i < spec->width - diff; i++)
+			buf[*end + i] = ' ';
+		*end += i;
+	}
+	else
+	{
+		if (spec->flags.pad_with_zero && spec->precision < 0)
+			padding = '0';
+		else
+			padding = ' ';
+		movebuf(buf, *start, *start + temp, diff);
+		for (i = 0; i < temp; i++)
+			buf[*start + i] = padding;
+		*end += i;
+	}
 }
 
 
@@ -40,9 +81,9 @@ void pad_precision(
 		fmt_spec const * const spec
 )
 {
+	char sign;
 	size_t diff, temp;
 
-	printf("%lu %lu %d\n", *start, *end, prefix);
 	diff = *end - *start;
 	switch (spec->conversion)
 	{
@@ -59,7 +100,12 @@ void pad_precision(
 		if (spec->precision == 0)
 		{
 			if (*start + prefix + 1 == *end && buf[*end - 1] == '0')
-				*end -= diff;
+			{
+				*end = *start;
+				sign = buf[*start];
+				if (sign == '+' || sign == ' ' || sign == '+')
+					*end += 1;
+			}
 		}
 		else if (spec->precision > 0 && (unsigned int)spec->precision > diff)
 		{
@@ -85,15 +131,16 @@ void pad_precision(
  */
 void movebuf(char * const buf, size_t from, size_t to, size_t count)
 {
-	char * copy;
 	size_t i;
 
-	copy = malloc(count);
-	if (copy == NULL)
-		exit(98);
-	for (i = 0; i < count; i++)
-		copy[i] = buf[from + i];
-	for (i = 0; i < count; i++)
-		buf[to + i] = copy[i];
-	free(copy);
+	if (to > from)
+	{
+		for (i = 1; i <= count; i++)
+			buf[to + count - i] = buf[from + count - i];
+	}
+	else
+	{
+		for (i = 0; i < count; i++)
+			buf[to + i] = buf[from + i];
+	}
 }

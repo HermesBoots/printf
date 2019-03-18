@@ -221,6 +221,12 @@ void pad_precision(
 		int prefix,
 		fmt_spec const * const spec
 );
+void pad_width(
+		char * const buf,
+		size_t * const start,
+		size_t * const end,
+		fmt_spec const * const spec
+);
 void movebuf(
 		char * const buf,
 		size_t from,

@@ -11,9 +11,10 @@
  */
 int _printf(char const *fmt, ...)
 {
-	char buf[1024];
-	size_t fpos, backup __attribute__((unused)), bpos;
+	char buf[1024] = {'\0'};
+	size_t fpos = 0, backup, bpos = 0;
 	fmt_spec spec;
+	int prefix;
 	va_list list;
 
 	va_start(list, fmt);
@@ -25,7 +26,8 @@ int _printf(char const *fmt, ...)
 		if (spec.conversion != CONVERSION_UNKNOWN)
 		{
 			backup = bpos;
-			print_data(buf, &bpos, &spec, &list);
+			prefix = print_data(buf, &bpos, &spec, &list);
+			pad_field(buf, &backup, &bpos, prefix, &spec);
 		}
 	}
 	write(1, buf, bpos);
