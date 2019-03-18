@@ -178,6 +178,7 @@ parser_states parse_format_length(
 }
 
 
+#define X(c) CONVERSION_ ## c
 /**
  * parse_format_conversion - parse the current format specifier conversion type
  * @spec: pointer to format specifier
@@ -192,31 +193,29 @@ parser_states parse_format_conversion(
 		size_t * const pos
 )
 {
+	conversions const map[] = {
+		X(HEXADECIMAL_FLOAT), X(BINARY_INTEGER), X(CHARACTER),
+		X(SIGNED_DECIMAL_INTEGER), X(EXPONENTIAL_FLOAT),
+		X(NORMAL_FLOAT), X(CLEAN_FLOAT), X(UNKNOWN),
+		X(SIGNED_DECIMAL_INTEGER), X(UNKNOWN), X(UNKNOWN), X(UNKNOWN),
+		X(UNKNOWN), X(COUNT_SO_FAR), X(OCTAL_INTEGER), X(POINTER),
+		X(UNKNOWN), X(STRING_REVERSE), X(STRING), X(UNKNOWN),
+		X(UNSIGNED_DECIMAL_INTEGER), X(UNKNOWN), X(UNKNOWN),
+		X(HEXADECIMAL_INTEGER), X(UNKNOWN), X(UNKNOWN)
+	};
+	char c;
+
 	spec->conversion = CONVERSION_UNKNOWN;
-	switch (text[(*pos)++])
+	c = text[(*pos)++];
+	if (c >= 'A' && c <= 'Z')
+		spec->flags.capitals = 1;
+	switch (c)
 	{
-	case 'd': case 'i':
-		spec->conversion = CONVERSION_SIGNED_DECIMAL_INTEGER;
-		break;
-	case 'u':
-		spec->conversion = CONVERSION_UNSIGNED_DECIMAL_INTEGER;
-		break;
-	case 'o':
-		spec->conversion = CONVERSION_OCTAL_INTEGER;
-		break;
 	case 'p':
 		spec->flags.alternate_form = 1;
+		spec->flags.capitals = 1;
 		spec->length = LENGTH_LONG;
-	case 'x':
-		spec->flags.capitals = 0;
-	case 'X':
 		spec->conversion = CONVERSION_HEXADECIMAL_INTEGER;
-		break;
-	case 'c':
-		spec->conversion = CONVERSION_CHARACTER;
-		break;
-	case 's':
-		spec->conversion = CONVERSION_STRING;
 		break;
 	case '%':
 		spec->conversion = CONVERSION_ESCAPE;
@@ -224,12 +223,15 @@ parser_states parse_format_conversion(
 	case 'S':
 		spec->conversion = CONVERSION_STRING_ESCAPED;
 		break;
-	case 'r':
-		spec->conversion = CONVERSION_STRING_REVERSE;
-		break;
 	case 'R':
 		spec->conversion = CONVERSION_STRING_ROT13;
 		break;
+	default:
+		if (spec->flags.capitals)
+			c -= 32;
+		if (c >= 'a' && c <= 'z')
+			spec->conversion = map[c - 'a'];
 	}
 	return (PARSER_DONE);
 }
+#undef X

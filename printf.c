@@ -1,4 +1,5 @@
 #include <stdarg.h>
+#include <stdio.h>
 #include <unistd.h>
 #include "holberton.h"
 
@@ -17,6 +18,8 @@ int _printf(char const *fmt, ...)
 	int prefix;
 	va_list list;
 
+	if (fmt == NULL)
+		return (-1);
 	va_start(list, fmt);
 	while (fmt[fpos] != '\0')
 	{
@@ -30,8 +33,7 @@ int _printf(char const *fmt, ...)
 			pad_field(buf, &backup, &bpos, prefix, &spec);
 		}
 	}
-	write(1, buf, bpos);
-	return (bpos);
+	return (write(1, buf, bpos));
 }
 
 
@@ -42,7 +44,6 @@ int _printf(char const *fmt, ...)
 void init_spec(fmt_spec * const spec)
 {
 	*(unsigned int *)&spec->flags = 0;
-	spec->flags.capitals = 1;
 	spec->width = FORMAT_UNSPECIFIED;
 	spec->precision = FORMAT_UNSPECIFIED;
 	spec->length = LENGTH_DEFAULT;
