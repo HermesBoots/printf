@@ -9,9 +9,9 @@
  * @str: pointer to string
  */
 void print_str(char * const buf, size_t * const pos,
-	       fmt_spec const * const spec, char const *str)
+	       fmt_spec const * const spec, char *str)
 {
-	const char *s = str, *null = "(null)";
+	char *s = str, *null = "(null)";
 	int i;
 
 	if (str == NULL)
@@ -43,9 +43,9 @@ void print_str(char * const buf, size_t * const pos,
  *
  * Return: VOID
  */
-void rot_13(char const *str)
+void rot_13(char *str)
 {
-	const char *s = str;
+	char *s = str;
 	char const *rot =
 		"NOPQRSTUVWXYZABCDEFGHIJKLM123456nopqrstuvwxyzabcdefghijklm";
 

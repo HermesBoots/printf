@@ -9,7 +9,7 @@
 #include <limits.h>
 
 /**
-n * print_data - take parsed formatting and send ints to be changed
+ * print_data - take parsed formatting and send ints to be changed
  * @buf: current buffer to print to
  * @pos: current position in buffer
  * @spec: how to format
