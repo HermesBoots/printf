@@ -11,8 +11,8 @@
  */
 int _printf(char const *fmt, ...)
 {
-	char buf[1024] = {'\0'};
 	size_t fpos = 0, backup, bpos = 0;
+	char buf[1024];
 	fmt_spec spec;
 	int prefix;
 	va_list list;
