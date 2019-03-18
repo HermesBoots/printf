@@ -18,7 +18,7 @@
  * Return: int (prefix)
  */
 int print_data(char * const buf, size_t * const pos,
-		fmt_spec const * const spec, va_list *list)
+		fmt_spec * const spec, va_list *list)
 {
 	int const bases[] = {0, 2, 8, 10, 10, 16, 16};
 	unsigned long uln = 0;
@@ -26,6 +26,9 @@ int print_data(char * const buf, size_t * const pos,
 
 	switch (spec->conversion)
 	{
+	case CONVERSION_POINTER:
+		spec->length = LENGTH_LONG;
+		spec->flags.alternate_form = 1;
 	case CONVERSION_OCTAL_INTEGER:
 	case CONVERSION_UNSIGNED_DECIMAL_INTEGER:
 	case CONVERSION_HEXADECIMAL_INTEGER:
@@ -71,6 +74,7 @@ unsigned long convert_int(char * const buf, size_t * const pos,
 
 	switch (spec->conversion)
 	{
+	case CONVERSION_POINTER:
 	case CONVERSION_OCTAL_INTEGER:
 	case CONVERSION_HEXADECIMAL_INTEGER:
 	case CONVERSION_UNSIGNED_DECIMAL_INTEGER:
@@ -118,6 +122,12 @@ void print_int(char * const buf, size_t * const pos,
 	int index = 0, temp = 0;
 	int convNum[64];
 
+	if (spec->conversion == CONVERSION_POINTER && val == 0)
+	{
+		for (s = "(nil)"; *s; s++)
+			buf[(*pos)++] = *s;
+		return;
+	}
 	do {
 		convNum[index] = val % radix;
 		index++;

@@ -172,7 +172,7 @@ parser_states parse_format_conversion(
 /* number_handling.c */
 int print_data(char * const buf,
 		size_t * const pos,
-		fmt_spec const * const spec,
+		fmt_spec * const spec,
 		va_list *list);
 unsigned long convert_int(char * const buf,
 			  size_t * const pos,
