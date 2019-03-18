@@ -15,11 +15,11 @@ void print_str(char * const buf, size_t * const pos,
 	int i;
 
 	if (str == NULL)
+	{
 		for (i = 0; i < 6; i++)
-		{
 			buf[(*pos)++] = null[i];
-			return;
-		}
+		return;
+	}
 	if (spec->conversion == CONVERSION_STRING_ROT13)
 	{
 		rot_13(buf, pos, s);
