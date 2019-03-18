@@ -121,10 +121,11 @@ void print_int(char * const buf, size_t * const pos,
 	const char digitsLow[16] = "0123456789abcdef";
 	int index = 0, temp = 0;
 	int convNum[64];
+	const char *s = "(nil)";
 
 	if (spec->conversion == CONVERSION_POINTER && val == 0)
 	{
-		for (s = "(nil)"; *s; s++)
+		for (; *s; s++)
 			buf[(*pos)++] = *s;
 		return;
 	}
@@ -179,7 +180,8 @@ int print_prefix(char * const buf, size_t * const pos,
 		prefix_count++;
 		if (spec->conversion == CONVERSION_OCTAL_INTEGER)
 			buf[(*pos)++] = '0';
-		else if (spec->conversion == CONVERSION_HEXADECIMAL_INTEGER)
+		else if (spec->conversion == CONVERSION_HEXADECIMAL_INTEGER ||
+			spec->conversion == CONVERSION_POINTER)
 		{
 			buf[(*pos)++] = '0';
 			if (caps)
