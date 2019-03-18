@@ -122,7 +122,8 @@ unsigned long convert_int(char * const buf, size_t * const pos,
 	default:
 		break;
 	}
-	*prefix = print_prefix(buf, pos, spec, negative);
+	if (uli)
+		*prefix = print_prefix(buf, pos, spec, negative);
 	return (uli);
 }
 
