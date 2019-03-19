@@ -91,6 +91,8 @@ void print_escaped(char * const buf, size_t * const pos,
 			++s;
 			buf[(*pos)++] = '\\';
 			buf[(*pos)++] = 'x';
+			index = 0;
+			temp = 0;
 			do {
 				convert[index] = temp_char % 16;
 				index++;
