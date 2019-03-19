@@ -56,7 +56,7 @@ void pad_width(
 	{
 		if (spec->flags.pad_with_zero && spec->precision < 0)
 		{
-			spec->precision = spec->width;
+			spec->precision = spec->width - prefix;
 			pad_precision(buf, start, end, prefix, spec);
 			return;
 		}
