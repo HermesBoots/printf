@@ -39,8 +39,6 @@ int _printf(char const *fmt, ...)
 			fpos = backup + 1;
 		}
 	}
-	if (bpos < 1)
-		return (-1);
 	return (write(1, buf, bpos));
 }
 
