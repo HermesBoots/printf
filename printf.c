@@ -25,6 +25,7 @@ int _printf(char const *fmt, ...)
 	{
 		print_plain(fmt, &fpos, buf, &bpos);
 		init_spec(&spec);
+		backup = bpos;
 		parse_format_spec(&spec, fmt, &fpos);
 		if (spec.conversion != CONVERSION_UNKNOWN)
 		{
@@ -32,7 +33,13 @@ int _printf(char const *fmt, ...)
 			prefix = print_data(buf, &bpos, &spec, &list);
 			pad_field(buf, &backup, &bpos, prefix, &spec);
 		}
+		else
+		{
+			fpos = backup + 1;
+		}
 	}
+	if (bpos < 1)
+		return (-1);
 	return (write(1, buf, bpos));
 }
 
