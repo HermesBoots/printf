@@ -25,7 +25,7 @@ int _printf(char const *fmt, ...)
 	{
 		print_plain(fmt, &fpos, buf, &bpos);
 		init_spec(&spec);
-		backup = bpos;
+		backup = fpos;
 		parse_format_spec(&spec, fmt, &fpos);
 		if (spec.conversion != CONVERSION_UNKNOWN)
 		{
@@ -35,6 +35,7 @@ int _printf(char const *fmt, ...)
 		}
 		else
 		{
+			buf[bpos++] = '%';
 			fpos = backup + 1;
 		}
 	}

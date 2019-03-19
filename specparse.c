@@ -156,22 +156,6 @@ parser_states parse_format_length(
 		}
 		spec->length = LENGTH_LONG;
 		return (PARSER_CONVERSION);
-	case 'j':
-		spec->length = LENGTH_MAXIMUM;
-		++*pos;
-		return (PARSER_CONVERSION);
-	case 't':
-		spec->length = LENGTH_POINTER_DIFFERENCE;
-		++*pos;
-		return (PARSER_CONVERSION);
-	case 'z':
-		spec->length = LENGTH_SIZE;
-		++*pos;
-		return (PARSER_CONVERSION);
-	case 'L':
-		spec->length = LENGTH_EXTENDED_FLOAT;
-		++*pos;
-		return (PARSER_CONVERSION);
 	default:
 		return (PARSER_CONVERSION);
 	}
@@ -195,10 +179,10 @@ parser_states parse_format_conversion(
 {
 	conversions const map[] = {
 		X(HEXADECIMAL_FLOAT), X(BINARY_INTEGER), X(CHARACTER),
-		X(SIGNED_DECIMAL_INTEGER), X(EXPONENTIAL_FLOAT),
-		X(NORMAL_FLOAT), X(CLEAN_FLOAT), X(UNKNOWN),
+		X(SIGNED_DECIMAL_INTEGER), X(UNKNOWN),
+		X(UNKNOWN), X(UNKNOWN), X(UNKNOWN),
 		X(SIGNED_DECIMAL_INTEGER), X(UNKNOWN), X(UNKNOWN), X(UNKNOWN),
-		X(UNKNOWN), X(COUNT_SO_FAR), X(OCTAL_INTEGER), X(POINTER),
+		X(UNKNOWN), X(UNKNOWN), X(OCTAL_INTEGER), X(POINTER),
 		X(UNKNOWN), X(STRING_REVERSE), X(STRING), X(UNKNOWN),
 		X(UNSIGNED_DECIMAL_INTEGER), X(UNKNOWN), X(UNKNOWN),
 		X(HEXADECIMAL_INTEGER), X(UNKNOWN), X(UNKNOWN)
