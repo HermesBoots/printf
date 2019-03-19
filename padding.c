@@ -16,11 +16,11 @@ void pad_field(
 		size_t * const start,
 		size_t * const end,
 		int prefix,
-		fmt_spec const * const spec
+		fmt_spec * const spec
 )
 {
 	pad_precision(buf, start, end, prefix, spec);
-	pad_width(buf, start, end, spec);
+	pad_width(buf, start, end, prefix, spec);
 }
 
 
@@ -35,7 +35,8 @@ void pad_width(
 		char * const buf,
 		size_t * const start,
 		size_t * const end,
-		fmt_spec const * const spec
+		int prefix,
+		fmt_spec * const spec
 )
 {
 	char padding;
@@ -54,7 +55,11 @@ void pad_width(
 	else
 	{
 		if (spec->flags.pad_with_zero && spec->precision < 0)
-			padding = '0';
+		{
+			spec->precision = spec->width;
+			pad_precision(buf, start, end, prefix, spec);
+			return;
+		}
 		else
 			padding = ' ';
 		movebuf(buf, *start, *start + temp, diff);

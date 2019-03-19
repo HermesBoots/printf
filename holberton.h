@@ -207,7 +207,7 @@ void pad_field(
 		size_t * const start,
 		size_t * const end,
 		int prefix,
-		fmt_spec const * const spec);
+		fmt_spec * const spec);
 void pad_precision(
 		char * const buf,
 		size_t * const start,
@@ -218,7 +218,8 @@ void pad_width(
 		char * const buf,
 		size_t * const start,
 		size_t * const end,
-		fmt_spec const * const spec);
+		int prefix,
+		fmt_spec * const spec);
 void movebuf(
 		char * const buf,
 		size_t from,
