@@ -29,6 +29,7 @@ void pad_field(
  * @buf: buffer containing field
  * @start: starting position of field
  * @end: ending position of field
+ * @prefix: length of number prefix
  * @spec: format specifier
  */
 void pad_width(
