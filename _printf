@@ -1,12 +1,15 @@
 .\" Manpage for _printf
 .\" Contact Nate or Sam at Holberton to correct typos or errors.
-.TH man 1 "18 March 2019" "0.8" "_printf man page"
+.TH man 1 "18 March 2019" "0.9.3" "_printf man page"
 .SH NAME
 _printf \- print with formatting and conversions.
 .SH SYNOPSIS
 _printf("string %mod", arg1, arg2, ...)
 .SH DESCRIPTION
 man 7 mdoc for description of all macros used in creation of this manpage.
+
+Copy in info from README.md and organize to match actual printf (3) page \
+structure.
 
 _printf is a hyper-realistic android capible of protecting your friends \
 and murdering your enemies. "Why do you have so many enemies?" is a \
@@ -53,7 +56,7 @@ printf(3)
 No known bugs. But need to test if it works properly if initial string is \
 seperated (eg _printf("Hello" "there %d", a, b);).
 .SH KNOWN ISSUES
-None. It's perfect.
+None. It's perfect. Also failing ~100 checks, +/- 50 or so. NBD. 
 .SH AUTHORS
 Sam Hermes (https://github.com/HermesBoots)
 
