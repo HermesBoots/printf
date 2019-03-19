@@ -14,8 +14,8 @@ A project to recreated the C standard `printf` function with some extra extensio
 - [x] o - converted to unsigned octal
 - [x] x - converted to unsigned hex (lowercase)
 - [x] X - converted to unsigned hex (uppercase)
-- [ ] S - print a string, but non-printable chars are upper hex, 2 chars (\xNN)(custom)
-- [ ] p - print address
+- [x] S - print a string, but non-printable chars are upper hex, 2 chars (\xNN)(custom)
+- [x] p - print address
 - [x] + - A  sign  (+ or -) should always be placed before a number produced by a signed conversion.
 - [x]  - (a space) A blank should be left before a positive number (or empty string) produced by a signed conversion.
 - [x] # - "alternate form" -- o: preceeded by a 0, x/X: preceeded by 0x, floats: all numbers will have decimal point
