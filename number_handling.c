@@ -42,6 +42,9 @@ int print_data(char * const buf, size_t * const pos,
 	case CONVERSION_STRING_ROT13:
 		print_str(buf, pos, spec, va_arg(*list, char *));
 		break;
+	case CONVERSION_STRING_ESCAPED:
+		print_escaped(buf, pos, va_arg(*list, unsigned char *));
+		break;
 	case CONVERSION_CHARACTER:
 		buf[*pos] = va_arg(*list, int) & 0xFF;
 		++*pos;

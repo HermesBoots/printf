@@ -65,3 +65,48 @@ void rot_13(char * const buf, size_t * const pos, char const *str)
 			buf[(*pos)++] = *s;
 	}
 }
+
+/**
+ * string_escaped - print string escape conversion
+ * @buf: buffer
+ * @pos: current position of buffer
+ * @str: string to check
+ *
+ * Return: VOID
+ */
+void print_escaped(char * const buf, size_t * const pos,
+		   const unsigned char *str)
+{
+	const char digits[16] = "0123456789ABCDEF";
+	int convert[16];
+	int index = 0, temp = 0;
+	const unsigned char *s = str;
+	unsigned char temp_char = 0;
+
+	while (*s)
+	{
+		if (*s < 32 || *s > 126)
+		{
+			temp_char = *s;
+			++s;
+			buf[(*pos)++] = '\\';
+			buf[(*pos)++] = 'x';
+			do {
+				convert[index] = temp_char % 16;
+				index++;
+				temp_char /= 16;
+			} while (temp_char != 0);
+			for (index--; index >= 0; index--)
+			{
+				temp = convert[index];
+				buf[(*pos)++] = digits[temp];
+			}
+		}
+		else
+		{
+			buf[*pos] = *s;
+			++*pos;
+			++s;
+		}
+	}
+}

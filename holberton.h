@@ -200,6 +200,7 @@ void print_plain(char const * const fmt,
 		 size_t * const fpos,
 		 char * const buf,
 		 size_t * const bpos);
+/* padding.c */
 void pad_field(
 		char * const buf,
 		size_t * const start,
@@ -231,6 +232,9 @@ void print_str(char * const buf,
 void rot_13(char * const buf,
 	    size_t * const pos,
 	    const char *str);
+void print_escaped(char * const buf,
+		    size_t * const pos,
+		    const unsigned char *str);
 
 
 #endif /* _FORMATTER_H_ */
