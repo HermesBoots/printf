@@ -40,12 +40,13 @@ void pad_width(
 )
 {
 	char padding;
-	size_t diff, i, temp;
+	long diff, i, temp;
 
 	if (spec->width <= 0)
 		return;
 	diff = *end - *start;
 	temp = spec->width - diff;
+	printf("diff %li\n", spec->width - diff);
 	if (spec->flags.left_justify)
 	{
 		for (i = 0; i < spec->width - diff; i++)
@@ -87,7 +88,7 @@ void pad_precision(
 )
 {
 	char sign;
-	size_t diff, temp;
+	long diff, temp;
 
 	diff = *end - *start;
 	switch (spec->conversion)
