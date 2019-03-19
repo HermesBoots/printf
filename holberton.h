@@ -5,6 +5,7 @@
 #include <stdarg.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <stdio.h>
 
 #define FORMAT_UNSPECIFIED (-1)
 #define FORMAT_NEGATIVE (-2)

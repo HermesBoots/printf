@@ -98,6 +98,8 @@ void print_escaped(char * const buf, size_t * const pos,
 				index++;
 				temp_char /= 16;
 			} while (temp_char != 0);
+			if (index < 2)
+				buf[(*pos)++] = '0';
 			for (index--; index >= 0; index--)
 			{
 				temp = convert[index];
