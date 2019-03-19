@@ -46,7 +46,6 @@ void pad_width(
 		return;
 	diff = *end - *start;
 	temp = spec->width - diff;
-	printf("diff %li\n", spec->width - diff);
 	if (spec->flags.left_justify)
 	{
 		for (i = 0; i < spec->width - diff; i++)
