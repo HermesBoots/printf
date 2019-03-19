@@ -162,7 +162,6 @@ void print_int(char * const buf, size_t * const pos,
 int print_prefix(char * const buf, size_t * const pos,
 		 fmt_spec const * const spec, int negative)
 {
-	int caps = spec->flags.capitals, alt = spec->flags.alternate_form;
 	int prefix_count = 0;
 
 	if (negative == true)
@@ -170,7 +169,8 @@ int print_prefix(char * const buf, size_t * const pos,
 		buf[(*pos)++] = '-';
 		prefix_count++;
 	}
-	else if (spec->flags.show_positive_sign || spec->flags.pad_positives)
+	else if (spec->conversion == CONVERSION_SIGNED_DECIMAL_INTEGER &&
+		 (spec->flags.show_positive_sign || spec->flags.pad_positives))
 	{
 		prefix_count++;
 		if (spec->flags.show_positive_sign)
@@ -178,24 +178,25 @@ int print_prefix(char * const buf, size_t * const pos,
 		else if (spec->flags.pad_positives)
 			buf[(*pos)++] = ' ';
 	}
-	if (alt)
+	if (spec->flags.alternate_form)
 	{
-		prefix_count++;
 		if (spec->conversion == CONVERSION_OCTAL_INTEGER)
+		{
+			prefix_count++;
 			buf[(*pos)++] = '0';
+		}
 		else if (spec->conversion == CONVERSION_HEXADECIMAL_INTEGER ||
 			spec->conversion == CONVERSION_POINTER)
 		{
+			prefix_count += 2;
 			buf[(*pos)++] = '0';
-			if (caps)
+			if (spec->flags.capitals)
 			{
 				buf[(*pos)++] = 'X';
-				prefix_count++;
 			}
 			else
 			{
 				buf[(*pos)++] = 'x';
-				prefix_count++;
 			}
 		}
 	}
