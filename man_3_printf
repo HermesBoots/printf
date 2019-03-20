@@ -69,6 +69,10 @@ Might give your computer bedbugs. Use at your own risk.
 
 .SH KNOWN ISSUES
 None. It's perfect. Also failing ~100 checks, +/- 50 or so. NBD.
+
+On the other hand, it doesn't handle floats and I would like it to do more \
+cool things like convert format string into MD5. Also would like to add \
+ability to choose padding character.
 .SH AUTHORS
 Sam Hermes (https://github.com/HermesBoots)
 
