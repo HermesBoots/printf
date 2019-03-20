@@ -35,4 +35,6 @@ A project to recreated the C standard `printf` function with some extra extensio
 - [ ] GG - will change voltage of computer and make it explode. Super exciting.
 
 ## Issues to resolve:
-
+- That random segfault (try to find it)
+- Random % sign when it feels like it
+- Does not spontaniously create kittens. Need to remedy.

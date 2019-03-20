@@ -61,10 +61,14 @@ h/l - length modifiers for d, i, o, u, x, and X.
 .SH SEE ALSO
 printf(3)
 .SH BUGS
-No known bugs. But need to test if it works properly if initial string is \
-seperated (eg _printf("Hello" "there %d", a, b);).
+Will occasionally print a random % when trying to print a %.
+
+Will segfault sometimes if passed more than 7 arguments, but not every time.
+
+Might give your computer bedbugs. Use at your own risk.
+
 .SH KNOWN ISSUES
-None. It's perfect. Also failing ~100 checks, +/- 50 or so. NBD. 
+None. It's perfect. Also failing ~100 checks, +/- 50 or so. NBD.
 .SH AUTHORS
 Sam Hermes (https://github.com/HermesBoots)
 
