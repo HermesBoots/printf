@@ -4,25 +4,15 @@
 .SH NAME
 _printf \- print with formatting and conversions.
 .SH SYNOPSIS
-_printf("string %mod", arg1, arg2, ...)
+.B #include <holberton.h>
+
+.BI "int _printf(const char *" "format" ", ...);"
 .SH DESCRIPTION
-man 7 mdoc for description of all macros used in creation of this manpage.
+_printf is a function that accepts a formatting string with any number of \
+format specifiers (beginning with a '%') which are replaced with the proceeding\
+ arguments. Format specifiers must match the data types of arguments passed to \
+them with the exception of conversion specifiers.
 
-Copy in info from README.md and organize to match actual printf (3) page \
-structure.
-
-_printf is a hyper-realistic android capible of protecting your friends \
-and murdering your enemies. "Why do you have so many enemies?" is a \
-phrase no one will ask! Definitely not because your android murdered them. \
-It is much more likely that they're simply terrified of your android. We \
-designed it to be awesome looking, as evidenced by the flames painted on \
-the side. If you want puppies you're in the wrong place, friend. But no,\
- your new android probably murdered them. And the puppies too. Look, \
-don't give me that. We had a choice, either program it to only sometimes \
-murder or always murder. The lawyers argued that "sometimes murderey" could \
-be interpreted by boring people to mean "will accidentally kill you", so now \
-there is no ambiguity. It will definitely murder everything it sees. \
-Except you. Probably. You're welcome.
 .SH OPTIONS
 _printf requires a string, which can contain any format or conversion \
 specifiers. Subsequent arguments can be anything at all as long as \
@@ -30,26 +20,44 @@ datatypes match, and they will replace your format specifiers.
 
 FORMAT SPECIFIERS:
 
-%s - will print strings. Requires a pointer.
+%s - if no l modifier, will print string up to but not including '\0'.
 
-%c - will print characters.
+%c - If no l modifier, int converted to unsigned char and resulting char \
+is printed.
 
 %d/i - prints integers. All ints passed are converted to type unsigned long.
 
 %% - prints a literal '%'.
 
-%x/X - converts number to hex format. X will print uppercase letters, while \
-x will print lowercase.
+%b - number is converted to binary
 
-%o - converts number to octal format.
+%x/X - converts number to unsigned  hex format. X will print uppercase letters\
+, while x will print lowercase.
+
+%o - converts number to unsigned octal format.
 
 %# - alternate forms. This flag will prefix certain formats with an indicator.\
  0x and 0X before hex, 0 before octals.
 
-'-' - does something
+'-' - left justify your text.
 
 '+' - adds a positive sign before all positive numbers and a negative sign \
 before all negative numbers.
+
+%S - print a string but non-printable characters are printed in hex ascii \
+value, preceeded by '/x'.
+
+ - (space) a blank will be placed before all positive numbers (or empty string) \
+produced by a signed conversion.
+
+h/l - length modifiers for d, i, o, u, x, and X.
+
+0 - width is padded with zeros.
+
+%r - prints string in reverse
+
+%R - prints ROT13 of string
+
 .SH SEE ALSO
 printf(3)
 .SH BUGS
