@@ -29,6 +29,7 @@ void print_str(char * const buf, size_t * const pos,
 	{
 		while (*s++)
 			;
+		s--;
 		for (s--; s >= str; (*pos)++, s--)
 			buf[*pos] = *s;
 	}
