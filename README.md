@@ -11,5 +11,5 @@ A project to recreate the C standard `printf` function with some extra extension
 - `R` prints a string with all English letters encoded with [ROT13](https://en.wikipedia.org/wiki/ROT13)
 
 ## Contributors
-- Nate Peterson [GitHub](https://github.com/blueExcess/) [Twitter](https://twitter.com/Natefp)
-- Sam Hermes [GitHub](https://github.com/HermesBoots/) [Twitter](https://twitter.com/SamHermesBoots)
+- Nate Peterson [GitHub](https://github.com/blueExcess/) [LinkedIn](https://www.linkedin.com/in/natefp/) [Twitter](https://twitter.com/Natefp)
+- Sam Hermes [GitHub](https://github.com/HermesBoots/) [LinkedIn](https://www.linkedin.com/in/samuel-hermes/) [Twitter](https://twitter.com/SamHermesBoots)
